@@ -1,5 +1,5 @@
-const File = require('../models/file');
-const StudentClassroom = require('../models/student-classroom');
+const File = require('../../models/file');
+const StudentClassroom = require('../../models/student-classroom');
 const path = require('path');
 const fs = require('fs');
 

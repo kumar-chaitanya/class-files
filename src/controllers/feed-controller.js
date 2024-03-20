@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/connection');
-const Classroom = require('../models/classroom');
-const File = require('../models/file');
-const StudentClassroom = require('../models/student-classroom');
+const Classroom = require('../../models/classroom');
+const File = require('../../models/file');
+const StudentClassroom = require('../../models/student-classroom');
 
 const getClassesFeed = async (req, res) => {
     try {
