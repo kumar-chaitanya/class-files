@@ -1,5 +1,7 @@
-require('dotenv').config();
-const express = require('express');
+import dotenv from 'dotenv';
+dotenv.config();
+
+import express, { Express } from 'express';
 
 const createDatabase = require('./config/create-database');
 const syncDatabase = require('./config/sync-database');
@@ -11,7 +13,7 @@ const classroomRoutes = require('./routes/classroom');
 const feedRoutes = require('./routes/feed');
 const fileRoutes = require('./routes/file');
 
-const app = express();
+const app: Express = express();
 
 app.use(express.json());
 
@@ -20,9 +22,9 @@ app.use('/api/v1/classrooms', authenticate, checkRole('teacher'), classroomRoute
 app.use('/api/v1/feed', authenticate, feedRoutes);
 app.use('/api/v1/files', authenticate, fileRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT: number = parseInt(process.env.PORT!) || 3000;
 
-async function startApp() {
+async function startApp(): Promise<void> {
     try {
         await createDatabase();
         await syncDatabase();
