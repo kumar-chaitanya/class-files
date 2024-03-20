@@ -1,14 +1,14 @@
-const sequelize = require('./connection');
+import sequelize from './connection';
 
-const User = require('../models/user');
-const Classroom = require('../models/classroom');
-const File = require('../models/file');
-const StudentClassroom = require('../models/student-classroom');
+import User from '../models/user';
+import Classroom from '../models/classroom';
+// import File from '../models/file';
+import StudentClassroom from '../models/student-classroom';
 
 User.belongsToMany(Classroom, { through: StudentClassroom, foreignKey: { name: 'studentId', allowNull: false } });
 Classroom.belongsToMany(User, { through: StudentClassroom, foreignKey: { name: 'classroomId', allowNull: false } });
 
-async function syncDatabase() {
+async function syncDatabase(): Promise<void> {
     try {
         await sequelize.sync({ alter: true });
         console.log('Database synchronized successfully');
@@ -17,4 +17,4 @@ async function syncDatabase() {
     }
 }
 
-module.exports = syncDatabase;
+export default syncDatabase;

@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
     databaseHost: 'mysql',
     databaseUsername: 'root',
     databasePassword: 'P@ssw0rd',
@@ -6,3 +6,5 @@ module.exports = {
     databaseName: 'class',
     databaseLogging: false
 };
+
+export default config;

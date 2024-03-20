@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-const User = require('./user');
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/connection';
+import User from './user';
 
 const Classroom = sequelize.define('classroom', {
   id: {
@@ -18,4 +18,4 @@ const Classroom = sequelize.define('classroom', {
 
 Classroom.belongsTo(User, { foreignKey: { name: 'teacherId', allowNull: false }, as: 'teacher' });
 
-module.exports = Classroom;
+export default Classroom;

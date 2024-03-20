@@ -1,7 +1,7 @@
-const mysql = require('mysql2/promise');
-const Config = require('./config');
+import mysql from 'mysql2/promise';
+import Config from './config';
 
-async function createDatabase() {
+async function createDatabase(): Promise<void> {
     try {
         const connection = await mysql.createConnection({
             host: Config.databaseHost,
@@ -16,4 +16,4 @@ async function createDatabase() {
     }
 }
 
-module.exports = createDatabase;
+export default createDatabase;
