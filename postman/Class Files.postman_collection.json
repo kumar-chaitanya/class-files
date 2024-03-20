@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "1eb91004-f748-4a72-a5ed-45259941ea1f",
+		"name": "Class Files",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23465611"
+	},
+	"item": [
+		{
+			"name": "auth-token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"susan\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "create-classroom",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNlMjFiNWI2LTQ5NTMtNDg0Mi05ZGEyLWI4OWJlZjQwZGVkNCIsInVzZXJuYW1lIjoiYWRhbSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDU4MDg2LCJleHAiOjE3MTAwNjE2ODZ9.K82hrSlWpHGtvTqNVZLvjIU13w86ubkmHHZEGiz90xA"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"geography\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/classrooms"
+			},
+			"response": []
+		},
+		{
+			"name": "update-classroom",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkMjUzYTY4LWFmMDctNGU5OC1iZmE5LWUyNTg2MDUzMzk0ZCIsInVzZXJuYW1lIjoicnV0aCIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDU4MDYzLCJleHAiOjE3MTAwNjE2NjN9.BTKK9t0oqWZ0pXYNSMV7aXKYwRHQWRfSAOrBNNi_9Zo"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"mathematics\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/classrooms/48bfb668-7348-4961-a434-2af1d06bd8d8"
+			},
+			"response": []
+		},
+		{
+			"name": "delete-classroom",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk4M2EyMDg2LTI5NTktNDQ1YS1iMWIzLTBmZmFiMDliMTFjNSIsInVzZXJuYW1lIjoiamFrZSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDYxODAxLCJleHAiOjE3MTAwNjU0MDF9.6k1fY-x-vA2miRjFJOl_e6YdLd5j1JGSMrZobuEcrbQ"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/classrooms/81342202-a92e-45c4-a721-06c19b36b440"
+			},
+			"response": []
+		},
+		{
+			"name": "add-student",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk4M2EyMDg2LTI5NTktNDQ1YS1iMWIzLTBmZmFiMDliMTFjNSIsInVzZXJuYW1lIjoiamFrZSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDYxODAxLCJleHAiOjE3MTAwNjU0MDF9.6k1fY-x-vA2miRjFJOl_e6YdLd5j1JGSMrZobuEcrbQ"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"studentId\": \"8bb2ffa4-6cbc-4cb9-aec0-a5d31528d1bf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/classrooms/81342202-a92e-45c4-a721-06c19b36b440/students"
+			},
+			"response": []
+		},
+		{
+			"name": "remove-student",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkMjUzYTY4LWFmMDctNGU5OC1iZmE5LWUyNTg2MDUzMzk0ZCIsInVzZXJuYW1lIjoicnV0aCIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDU4MDYzLCJleHAiOjE3MTAwNjE2NjN9.BTKK9t0oqWZ0pXYNSMV7aXKYwRHQWRfSAOrBNNi_9Zo"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"studentId\": \"8bb2ffa4-6cbc-4cb9-aec0-a5d31528d1bf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/v1/classrooms/48bfb668-7348-4961-a434-2af1d06bd8d8/students"
+			},
+			"response": []
+		},
+		{
+			"name": "share-file",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk4M2EyMDg2LTI5NTktNDQ1YS1iMWIzLTBmZmFiMDliMTFjNSIsInVzZXJuYW1lIjoiamFrZSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDYxODAxLCJleHAiOjE3MTAwNjU0MDF9.6k1fY-x-vA2miRjFJOl_e6YdLd5j1JGSMrZobuEcrbQ"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "this is a csv file containing some test records",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/centos/Downloads/Member_Journey_End_02282024_111404.csv"
+						}
+					]
+				},
+				"url": "http://localhost:3000/api/v1/classrooms/81342202-a92e-45c4-a721-06c19b36b440/files"
+			},
+			"response": []
+		},
+		{
+			"name": "update-file",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk4M2EyMDg2LTI5NTktNDQ1YS1iMWIzLTBmZmFiMDliMTFjNSIsInVzZXJuYW1lIjoiamFrZSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDYxODAxLCJleHAiOjE3MTAwNjU0MDF9.6k1fY-x-vA2miRjFJOl_e6YdLd5j1JGSMrZobuEcrbQ"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "this is a png image file",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/centos/Pictures/Screenshot from 2024-02-28 09-26-10.png"
+						}
+					]
+				},
+				"url": "http://localhost:3000/api/v1/classrooms/files/5465cfae-d0aa-4981-b30e-e9b6b6bcf193"
+			},
+			"response": []
+		},
+		{
+			"name": "delete-file",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk4M2EyMDg2LTI5NTktNDQ1YS1iMWIzLTBmZmFiMDliMTFjNSIsInVzZXJuYW1lIjoiamFrZSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDYxODAxLCJleHAiOjE3MTAwNjU0MDF9.6k1fY-x-vA2miRjFJOl_e6YdLd5j1JGSMrZobuEcrbQ"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/classrooms/files/5465cfae-d0aa-4981-b30e-e9b6b6bcf193"
+			},
+			"response": []
+		},
+		{
+			"name": "classes-feed",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk4M2EyMDg2LTI5NTktNDQ1YS1iMWIzLTBmZmFiMDliMTFjNSIsInVzZXJuYW1lIjoiamFrZSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDYxODAxLCJleHAiOjE3MTAwNjU0MDF9.6k1fY-x-vA2miRjFJOl_e6YdLd5j1JGSMrZobuEcrbQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/feed/classes"
+			},
+			"response": []
+		},
+		{
+			"name": "files-feed",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk4M2EyMDg2LTI5NTktNDQ1YS1iMWIzLTBmZmFiMDliMTFjNSIsInVzZXJuYW1lIjoiamFrZSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDYxODAxLCJleHAiOjE3MTAwNjU0MDF9.6k1fY-x-vA2miRjFJOl_e6YdLd5j1JGSMrZobuEcrbQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/feed/81342202-a92e-45c4-a721-06c19b36b440/files"
+			},
+			"response": []
+		},
+		{
+			"name": "download-file",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk4M2EyMDg2LTI5NTktNDQ1YS1iMWIzLTBmZmFiMDliMTFjNSIsInVzZXJuYW1lIjoiamFrZSIsInJvbGUiOiJ0ZWFjaGVyIiwiaWF0IjoxNzEwMDYxODAxLCJleHAiOjE3MTAwNjU0MDF9.6k1fY-x-vA2miRjFJOl_e6YdLd5j1JGSMrZobuEcrbQ"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/v1/files/f93f8ca5-03b0-450b-ad52-c60f3cf86a88/download"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
