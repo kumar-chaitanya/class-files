@@ -1,4 +1,6 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsToMany } from 'sequelize-typescript';
+import User from './user';
+import UserClassroom from './user-classroom';
 
 @Table({
   timestamps: true
@@ -18,22 +20,16 @@ class Classroom extends Model<Classroom> {
     allowNull: false
   })
   name!: string;
+
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.STRING(36),
+    allowNull: false
+  })
+  createdById!: string;
+
+  @BelongsToMany(() => User, () => UserClassroom)
+  users?: User[]
 };
-
-// const Classroom = sequelize.define('classroom', {
-//   id: {
-//     type: DataTypes.STRING(36),
-//     autoIncrement: false,
-//     allowNull: false,
-//     defaultValue: DataTypes.UUIDV4,
-//     primaryKey: true
-//   },
-//   name: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   }
-// });
-
-// Classroom.belongsTo(User, { foreignKey: { name: 'teacherId', allowNull: false }, as: 'teacher' });
 
 export default Classroom;

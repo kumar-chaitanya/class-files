@@ -1,5 +1,7 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, BelongsToMany } from 'sequelize-typescript';
 import { UserRole } from '../types/custom.types';
+import Classroom from './classroom';
+import UserClassroom from './user-classroom';
 
 @Table({
   timestamps: true
@@ -31,30 +33,10 @@ class User extends Model<User> {
     type: DataType.ENUM('teacher', 'student'),
     allowNull: false
   })
-  role!: UserRole
-};
+  role!: UserRole;
 
-// const User = sequelize.define('user', {
-//   id: {
-//     type: DataTypes.STRING(36),
-//     autoIncrement: false,
-//     allowNull: false,
-//     defaultValue: DataTypes.UUIDV4,
-//     primaryKey: true
-//   },
-//   username: {
-//     type: DataTypes.STRING,
-//     unique: true,
-//     allowNull: false
-//   },
-//   password: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   role: {
-//     type: DataTypes.ENUM('teacher', 'student'),
-//     allowNull: false
-//   }
-// });
+  @BelongsToMany(() => Classroom, () => UserClassroom)
+  classrooms?: Classroom[]
+};
 
 export default User;
