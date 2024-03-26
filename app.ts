@@ -3,12 +3,12 @@ dotenv.config();
 
 import express, { Express } from 'express';
 
-import createDatabase from './config/create-database';
-import syncDatabase from './config/sync-database';
-import authenticate from './middlewares/authenticate';
-import checkRole from './middlewares/check-role';
+import createDatabase from './src/config/create-database';
+import syncDatabase from './src/config/sync-database';
+import authenticate from './src/middlewares/authenticate';
+import checkRole from './src/middlewares/check-role';
 
-import authRoutes from './routes/auth';
+import authRoutes from './src/routes/auth';
 // const classroomRoutes = require('./routes/classroom');
 // const feedRoutes = require('./routes/feed');
 // const fileRoutes = require('./routes/file');
