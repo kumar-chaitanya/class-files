@@ -8,7 +8,7 @@ import syncDatabase from './config/sync-database';
 import authenticate from './middlewares/authenticate';
 import checkRole from './middlewares/check-role';
 
-// const authRoutes = require('./routes/auth');
+import authRoutes from './routes/auth';
 // const classroomRoutes = require('./routes/classroom');
 // const feedRoutes = require('./routes/feed');
 // const fileRoutes = require('./routes/file');
@@ -17,7 +17,7 @@ const app: Express = express();
 
 app.use(express.json());
 
-// app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/auth', authRoutes);
 // app.use('/api/v1/classrooms', authenticate, checkRole('teacher'), classroomRoutes);
 // app.use('/api/v1/feed', authenticate, feedRoutes);
 // app.use('/api/v1/files', authenticate, fileRoutes);

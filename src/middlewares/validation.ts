@@ -1,4 +1,5 @@
-const { validationResult, check, param } = require('express-validator');
+import { validationResult, check } from 'express-validator';
+import { Request, Response, NextFunction } from 'express';
 
 // Validation middleware for authentication endpoint
 const validateAuth = [
@@ -27,15 +28,17 @@ const validateDeleteStudentFromClassroom = [
 ];
 
 // Middleware function to handle validation errors
-const handleValidationErrors = (req, res, next) => {
+const handleValidationErrors = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        res.status(400).json({ errors: errors.array() });
+        return;
     }
     next();
+    return;
 };
 
-module.exports = {
+export {
     validateAuth,
     validateCreateClassroom,
     validateUpdateClassroomDetails,
