@@ -11,7 +11,7 @@ import checkRole from './src/middlewares/check-role';
 import authRoutes from './src/routes/auth';
 import classroomRoutes from './src/routes/classroom';
 import feedRoutes from './src/routes/feed';
-// const fileRoutes = require('./routes/file');
+import fileRoutes from './src/routes/file';
 
 const app: Express = express();
 
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/classrooms', authenticate, checkRole('teacher'), classroomRoutes);
 app.use('/api/v1/feed', authenticate, feedRoutes);
-// app.use('/api/v1/files', authenticate, fileRoutes);
+app.use('/api/v1/files', authenticate, fileRoutes);
 
 const PORT: number = parseInt(process.env.PORT!) || 3000;
 
