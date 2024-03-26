@@ -1,7 +1,7 @@
-const express = require('express');
-const multer = require('multer');
+import express from 'express';
+import multer from 'multer';
 const router = express.Router();
-const path = require('path');
+import path from 'path';
 const storage = multer.diskStorage({
     destination: `${path.join(__dirname, '..', '..', '/uploads/')}`,
     filename: (req, file, cb) => {
@@ -10,27 +10,27 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-const {
+import {
     validateCreateClassroom, validateUpdateClassroomDetails,
     validateAddStudentToClassroom, validateDeleteStudentFromClassroom,
     handleValidationErrors
-} = require('../middlewares/validation');
+} from '../middlewares/validation';
 
-const {
+import {
     createClassroom, updateClassroomDetails, deleteClassroom,
     addStudentToClassroom, deleteStudentFromClassroom,
     shareFileToClassroom, deleteFileFromClassroom, updateFileInClassroom
-} = require('../controllers/classroom-controller');
+} from '../controllers/classroom-controller';
 
-router.post('/', [validateCreateClassroom, handleValidationErrors], createClassroom);
+router.post('/', validateCreateClassroom, [handleValidationErrors], createClassroom);
 
-router.put('/:id', [validateUpdateClassroomDetails, handleValidationErrors], updateClassroomDetails);
+router.put('/:id', validateUpdateClassroomDetails, [handleValidationErrors], updateClassroomDetails);
 
 router.delete('/:id', deleteClassroom);
 
-router.post('/:id/students', [validateAddStudentToClassroom, handleValidationErrors], addStudentToClassroom);
+router.post('/:id/students', validateAddStudentToClassroom, [handleValidationErrors], addStudentToClassroom);
 
-router.delete('/:id/students', [validateDeleteStudentFromClassroom, handleValidationErrors], deleteStudentFromClassroom);
+router.delete('/:id/students', validateDeleteStudentFromClassroom, [handleValidationErrors], deleteStudentFromClassroom);
 
 router.post('/:id/files', upload.single('file'), shareFileToClassroom);
 
@@ -38,4 +38,4 @@ router.put('/files/:fileId', upload.single('file'), updateFileInClassroom);
 
 router.delete('/files/:fileId', deleteFileFromClassroom);
 
-module.exports = router;
+export default router;

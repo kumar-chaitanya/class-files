@@ -26,7 +26,7 @@ class Classroom extends Model<Classroom> {
     type: DataType.STRING(36),
     allowNull: false
   })
-  createdById!: string;
+  teacherId!: string;
 
   @BelongsToMany(() => User, () => UserClassroom)
   users?: User[]

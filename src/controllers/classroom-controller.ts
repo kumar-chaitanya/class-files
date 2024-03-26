@@ -1,24 +1,32 @@
-const fs = require('fs');
-const User = require('../models/user');
-const Classroom = require('../models/classroom');
-const StudentClassroom = require('../models/student-classroom');
-const File = require('../models/file');
+import fs from 'fs';
+import { Request, Response } from 'express';
+import User from '../models/user';
+import Classroom from '../models/classroom';
+import UserClassroom from '../models/user-classroom';
+import ClassFile from '../models/class-file';
 
-const createClassroom = async (req, res) => {
+const createClassroom = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name } = req.body;
-        const teacherId = req.user.id;
+        const name: string = req.body.name;
+        const teacherId: string | undefined = req.user?.id;
+        
+        if (name && teacherId) {
+            let body = { name, teacherId } as Classroom;
+            const classroom = await Classroom.create(body);
+            res.status(201).json({ message: 'Classroom created successfully', classroom });
+            return;
+        }
 
-        const classroom = await Classroom.create({ name, teacherId });
-
-        res.status(201).json({ message: 'Classroom created successfully', classroom });
+        res.status(400).json({ message: 'Invalid request' });
+        return;
     } catch (error) {
         console.error('Error creating classroom:', error);
         res.status(500).json({ message: 'Internal server error' });
+        return;
     }
 };
 
-const updateClassroomDetails = async (req, res) => {
+const updateClassroomDetails = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
         const { name } = req.body;
@@ -26,12 +34,14 @@ const updateClassroomDetails = async (req, res) => {
         // Check if the classroom exists
         const classroom = await Classroom.findByPk(id);
         if (!classroom) {
-            return res.status(404).json({ message: 'Classroom not found' });
+            res.status(404).json({ message: 'Classroom not found' });
+            return;
         }
 
         // Check if the authenticated user is the teacher of the classroom
-        if (classroom.teacherId !== req.user.id) {
-            return res.status(403).json({ message: 'You are not authorized to update details of this classroom' });
+        if (classroom.teacherId !== req.user?.id) {
+            res.status(403).json({ message: 'You are not authorized to update details of this classroom' });
+            return;
         }
 
         // Update the classroom details
@@ -44,26 +54,28 @@ const updateClassroomDetails = async (req, res) => {
     }
 };
 
-const deleteClassroom = async (req, res) => {
+const deleteClassroom = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
 
         // Check if the classroom exists
         const classroom = await Classroom.findByPk(id);
         if (!classroom) {
-            return res.status(404).json({ message: 'Classroom not found' });
+            res.status(404).json({ message: 'Classroom not found' });
+            return;
         }
 
         // Check if the authenticated user is the teacher of the classroom
-        if (classroom.teacherId !== req.user.id) {
-            return res.status(403).json({ message: 'You are not authorized to delete this classroom' });
+        if (classroom.teacherId !== req.user?.id) {
+            res.status(403).json({ message: 'You are not authorized to delete this classroom' });
+            return;
         }
 
         // Delete all entries for the classroom from the junction table
-        await StudentClassroom.destroy({ where: { classroomId: id } });
+        await UserClassroom.destroy({ where: { classroomId: id } });
 
         // Delete all the files for the classroom
-        await File.destroy({ where: { classroomId: id } });
+        await ClassFile.destroy({ where: { classroomId: id } });
 
         // Delete the classroom
         await classroom.destroy();
@@ -75,7 +87,7 @@ const deleteClassroom = async (req, res) => {
     }
 };
 
-const addStudentToClassroom = async (req, res) => {
+const addStudentToClassroom = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
         const { studentId } = req.body;
@@ -83,28 +95,33 @@ const addStudentToClassroom = async (req, res) => {
         // Check if the classroom exists
         const classroom = await Classroom.findByPk(id);
         if (!classroom) {
-            return res.status(404).json({ message: 'Classroom not found' });
+            res.status(404).json({ message: 'Classroom not found' });
+            return;
         }
 
         // Check if the authenticated teacher is the owner of the classroom
-        if (classroom.teacherId !== req.user.id) {
-            return res.status(403).json({ message: 'You are not authorized to add students to this classroom' });
+        if (classroom.teacherId !== req.user?.id) {
+            res.status(403).json({ message: 'You are not authorized to add students to this classroom' });
+            return;
         }
 
         // Check if the student exists
         const student = await User.findByPk(studentId);
         if (!student || student.role !== 'student') {
-            return res.status(404).json({ message: 'Student not found' });
+            res.status(404).json({ message: 'Student not found' });
+            return;
         }
 
         // Check if the student is already assigned to the classroom
-        const existingAssignment = await StudentClassroom.findOne({ where: { studentId, classroomId: id } });
+        const existingAssignment = await UserClassroom.findOne({ where: { studentId, classroomId: id } });
         if (existingAssignment) {
-            return res.status(400).json({ message: 'Student is already assigned to this classroom' });
+            res.status(400).json({ message: 'Student is already assigned to this classroom' });
+            return;
         }
 
         // Create new assignment for the student in the classroom
-        await StudentClassroom.create({ studentId, classroomId: id });
+        let body = { studentId, classroomId: id } as UserClassroom;
+        await UserClassroom.create(body);
 
         res.status(200).json({ message: 'Student added to classroom successfully' });
     } catch (error) {
@@ -113,7 +130,7 @@ const addStudentToClassroom = async (req, res) => {
     }
 };
 
-const deleteStudentFromClassroom = async (req, res) => {
+const deleteStudentFromClassroom = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
         const { studentId } = req.body;
@@ -121,18 +138,21 @@ const deleteStudentFromClassroom = async (req, res) => {
         // Check if the classroom exists
         const classroom = await Classroom.findByPk(id);
         if (!classroom) {
-            return res.status(404).json({ message: 'Classroom not found' });
+            res.status(404).json({ message: 'Classroom not found' });
+            return;
         }
 
         // Check if the authenticated teacher is the owner of the classroom
-        if (classroom.teacherId !== req.user.id) {
-            return res.status(403).json({ message: 'You are not authorized to remove students from this classroom' });
+        if (classroom.teacherId !== req.user?.id) {
+            res.status(403).json({ message: 'You are not authorized to remove students from this classroom' });
+            return;
         }
 
         // Check if the student is assigned to the classroom
-        const assignment = await StudentClassroom.findOne({ where: { studentId, classroomId: id } });
+        const assignment = await UserClassroom.findOne({ where: { studentId, classroomId: id } });
         if (!assignment) {
-            return res.status(404).json({ message: 'Student is not assigned to this classroom' });
+            res.status(404).json({ message: 'Student is not assigned to this classroom' });
+            return;
         }
 
         // Delete the student's assignment from the classroom
@@ -145,7 +165,7 @@ const deleteStudentFromClassroom = async (req, res) => {
     }
 };
 
-const shareFileToClassroom = async (req, res) => {
+const shareFileToClassroom = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
         const { description } = req.body;
@@ -153,24 +173,26 @@ const shareFileToClassroom = async (req, res) => {
         // Check if the classroom exists
         const classroom = await Classroom.findByPk(id);
         if (!classroom) {
-            return res.status(404).json({ message: 'Classroom not found' });
+            res.status(404).json({ message: 'Classroom not found' });
+            return;
         }
 
         // Check if the authenticated teacher is the owner of the classroom
-        if (classroom.teacherId !== req.user.id) {
-            return res.status(403).json({ message: 'You are not authorized to add files to this classroom' });
+        if (classroom.teacherId !== req.user?.id) {
+            res.status(403).json({ message: 'You are not authorized to add files to this classroom' });
+            return;
         }
 
         // Create the file entry in the database
-        const file = await File.create({
-            name: req.file.originalname,
+        let body = {
+            name: req.file?.originalname,
             description,
-            uploadedAt: new Date(),
             uploadedBy: req.user.id,
-            type: req.file.mimetype,
+            type: req.file?.mimetype,
             classroomId: id,
-            path: req.file.path
-        });
+            path: req.file?.path
+        } as ClassFile;
+        const file = await ClassFile.create(body);
 
         res.status(200).json({ message: 'File shared to classroom successfully', file });
     } catch (error) {
@@ -179,21 +201,23 @@ const shareFileToClassroom = async (req, res) => {
     }
 };
 
-const deleteFileFromClassroom = async (req, res) => {
+const deleteFileFromClassroom = async (req: Request, res: Response): Promise<void> => {
     try {
         const { fileId } = req.params;
 
         // Find the file by fileId
-        const file = await File.findByPk(fileId);
+        const file = await ClassFile.findByPk(fileId);
 
         // Check if the file exists
         if (!file) {
-            return res.status(404).json({ message: 'File not found' });
+            res.status(404).json({ message: 'File not found' });
+            return;
         }
 
         // Check if the authenticated user is the teacher who shared the file
-        if (file.uploadedBy !== req.user.id) {
-            return res.status(403).json({ message: 'You are not authorized to delete this file' });
+        if (file.uploadedBy !== req.user?.id) {
+            res.status(403).json({ message: 'You are not authorized to delete this file' });
+            return;
         }
 
         // Delete the file from the file system
@@ -209,22 +233,24 @@ const deleteFileFromClassroom = async (req, res) => {
     }
 };
 
-const updateFileInClassroom = async (req, res) => {
+const updateFileInClassroom = async (req: Request, res: Response): Promise<void> => {
     try {
         const { fileId } = req.params;
         const { description } = req.body;
 
         // Find the file by fileId
-        const file = await File.findByPk(fileId);
+        const file = await ClassFile.findByPk(fileId);
 
         // Check if the file exists
         if (!file) {
-            return res.status(404).json({ message: 'File not found' });
+            res.status(404).json({ message: 'File not found' });
+            return;
         }
 
         // Check if the authenticated user is the teacher who shared the file
-        if (file.uploadedBy !== req.user.id) {
-            return res.status(403).json({ message: 'You are not authorized to delete this file' });
+        if (file.uploadedBy !== req.user?.id) {
+            res.status(403).json({ message: 'You are not authorized to delete this file' });
+            return;
         }
 
         // Delete the previous file from the file system
@@ -232,12 +258,12 @@ const updateFileInClassroom = async (req, res) => {
 
         // Update file
         const updatedFile = {
-            name: req.file.originalname,
+            name: req.file?.originalname,
             description,
             uploadedAt: new Date(),
             uploadedBy: req.user.id,
-            type: req.file.mimetype,
-            path: req.file.path
+            type: req.file?.mimetype,
+            path: req.file?.path
         };
         await file.update(updatedFile);
 
@@ -248,7 +274,7 @@ const updateFileInClassroom = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     createClassroom,
     updateClassroomDetails,
     deleteClassroom,
