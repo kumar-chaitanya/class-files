@@ -5,3 +5,9 @@ export interface ReqUser {
     username: string;
     role: UserRole;
 };
+
+export interface Where {
+    where: {
+        [key: string]: any
+    }
+};
