@@ -3,7 +3,7 @@ import sequelize from './connection';
 async function syncDatabase(): Promise<void> {
     try {
         sequelize.addModels([__dirname + '..' + '/models/*.ts'], (filename, member) => {
-            return filename.replaceAll('-', '').toLocaleLowerCase() === member.toLocaleLowerCase();
+            return filename.replace('-', '').toLocaleLowerCase() === member.toLocaleLowerCase();
         });
         await sequelize.sync({ alter: true });
         console.log('Database synchronized successfully');
