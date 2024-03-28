@@ -1,9 +1,11 @@
 import bcrypt from 'bcrypt';
 import { User } from '../models/user';
 import { UserRole } from '../types/custom.types';
+import syncDatabase from './sync-database';
 
 async function createUsers(): Promise<void> {
     try {
+        await syncDatabase();
         const hashedPassword = await bcrypt.hash('password', 10);
         const teacherRole: UserRole = 'teacher';
         const studentRole: UserRole = 'student';
