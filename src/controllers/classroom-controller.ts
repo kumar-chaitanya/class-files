@@ -1,9 +1,9 @@
 import fs from 'fs';
 import { Request, Response } from 'express';
-import User from '../models/user';
-import Classroom from '../models/classroom';
-import UserClassroom from '../models/user-classroom';
-import ClassFile from '../models/class-file';
+import { User } from '../models/user';
+import { Classroom } from '../models/classroom';
+import { UserClassroom } from '../models/user-classroom';
+import { ClassFile } from '../models/class-file';
 
 const createClassroom = async (req: Request, res: Response): Promise<void> => {
     try {

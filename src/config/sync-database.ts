@@ -1,8 +1,9 @@
 import sequelize from './connection';
+import path from 'path';
 
 async function syncDatabase(): Promise<void> {
     try {
-        sequelize.addModels([__dirname + '..' + '/models/*.ts'], (filename, member) => {
+        sequelize.addModels([path.join(__dirname, '..', '/models/')], (filename, member) => {
             return filename.replace('-', '').toLocaleLowerCase() === member.toLocaleLowerCase();
         });
         await sequelize.sync({ alter: true });

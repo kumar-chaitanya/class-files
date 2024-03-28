@@ -1,11 +1,11 @@
 import { Table, Column, Model, DataType, ForeignKey } from 'sequelize-typescript';
-import User from './user';
-import Classroom from './classroom';
+import { User } from './user';
+import { Classroom } from './classroom';
 
 @Table({
     timestamps: true
 })
-class ClassFile extends Model<ClassFile> {
+export class ClassFile extends Model<ClassFile> {
     @Column({
         type: DataType.STRING(36),
         defaultValue: DataType.UUIDV4,
@@ -52,5 +52,3 @@ class ClassFile extends Model<ClassFile> {
     })
     classroomId!: string;
 };
-
-export default ClassFile;

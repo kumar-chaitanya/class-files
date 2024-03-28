@@ -1,12 +1,12 @@
 import { Table, Column, Model, DataType, BelongsToMany } from 'sequelize-typescript';
 import { UserRole } from '../types/custom.types';
-import Classroom from './classroom';
-import UserClassroom from './user-classroom';
+import { Classroom } from './classroom';
+import { UserClassroom } from './user-classroom';
 
 @Table({
   timestamps: true
 })
-class User extends Model<User> {
+export class User extends Model<User> {
   @Column({
     type: DataType.STRING(36),
     defaultValue: DataType.UUIDV4,
@@ -38,5 +38,3 @@ class User extends Model<User> {
   @BelongsToMany(() => Classroom, () => UserClassroom)
   classrooms?: Classroom[]
 };
-
-export default User;

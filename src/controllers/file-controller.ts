@@ -1,5 +1,5 @@
-import ClassFile from "../models/class-file";
-import UserClassroom from "../models/user-classroom";
+import { ClassFile } from "../models/class-file";
+import { UserClassroom } from "../models/user-classroom";
 import fs from 'fs';
 import { Request, Response } from "express";
 

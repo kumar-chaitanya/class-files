@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize';
 import sequelize from '../config/connection';
-import Classroom from '../models/classroom';
-import ClassFile from '../models/class-file';
-import UserClassroom from '../models/user-classroom';
+import { Classroom } from '../models/classroom';
+import { ClassFile } from '../models/class-file';
+import { UserClassroom } from '../models/user-classroom';
 import { Request, Response } from 'express';
 import { Where } from '../interfaces/custom.interfaces';
 
@@ -46,7 +46,7 @@ const getFilesFeed = async (req: Request, res: Response): Promise<void> => {
 
         // Check if the authenticated user is authorized to access the files feed of this classroom
         if (req.user?.role === 'teacher') {
-            classroomAccess = await Classroom.findOne({ where: { id: classroomId, teacherId: req.user.id } });  
+            classroomAccess = await Classroom.findOne({ where: { id: classroomId, teacherId: req.user.id } });
         } else if (req.user?.role === 'student') {
             classroomAccess = await UserClassroom.findOne({ where: { classroomId, studentId: req.user.id } });
         }

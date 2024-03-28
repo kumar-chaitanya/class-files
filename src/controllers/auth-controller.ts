@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
-import User from '../models/user';
+import { User } from '../models/user';
 import { ReqUser } from '../interfaces/custom.interfaces';
 
 export const authenticateUser = async (req: Request, res: Response): Promise<void> => {
