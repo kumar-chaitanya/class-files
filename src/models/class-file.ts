@@ -3,7 +3,8 @@ import { User } from './user';
 import { Classroom } from './classroom';
 
 @Table({
-    timestamps: true
+    timestamps: true,
+    tableName: 'classFiles'
 })
 export class ClassFile extends Model<ClassFile> {
     @Column({

@@ -20,9 +20,9 @@ const getClassesFeed = async (req: Request, res: Response): Promise<void> => {
         FROM
             users
                 INNER JOIN
-            studentClassrooms ON users.id = studentClassrooms.studentId
+            userClassrooms ON users.id = userClassrooms.studentId
                 INNER JOIN
-            classrooms ON studentClassrooms.classroomId = classrooms.id
+            classrooms ON userClassrooms.classroomId = classrooms.id
         WHERE
             users.id = '${req.user?.id}';`;
 
@@ -81,19 +81,19 @@ const getFilesFeed = async (req: Request, res: Response): Promise<void> => {
         } else {
             // If the user is a student, fetch files for the classroom visible to the student
             let getFiles = `SELECT 
-            files.*
+            classFiles.*
         FROM
             users
                 INNER JOIN
-            studentClassrooms ON users.id = studentClassrooms.studentId
+            userClassrooms ON users.id = userClassrooms.studentId
                 INNER JOIN
-            files ON studentClassrooms.classroomId = files.classroomId
+            classFiles ON userClassrooms.classroomId = classFiles.classroomId
         WHERE
             users.id = '${req.user?.id}'
-                AND studentClassrooms.classroomId = '${classroomId}'`;
+                AND userClassrooms.classroomId = '${classroomId}'`;
 
-            if (type) getFiles += ` AND files.type LIKE '%${type}%'`;
-            if (search) getFiles += ` AND files.name LIKE '%${search}%'`;
+            if (type) getFiles += ` AND classFiles.type LIKE '%${type}%'`;
+            if (search) getFiles += ` AND classFiles.name LIKE '%${search}%'`;
 
             files = await sequelize.query(getFiles, {
                 type: Sequelize.QueryTypes.SELECT

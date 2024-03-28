@@ -4,7 +4,8 @@ import { Classroom } from './classroom';
 import { UserClassroom } from './user-classroom';
 
 @Table({
-  timestamps: true
+  timestamps: true,
+  tableName: 'users'
 })
 export class User extends Model<User> {
   @Column({
