@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsToMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsToMany, BelongsTo } from 'sequelize-typescript';
 import { User } from './user';
 import { UserClassroom } from './user-classroom';
 
@@ -28,6 +28,9 @@ export class Classroom extends Model<Classroom> {
   })
   teacherId!: string;
 
+  @BelongsTo(() => User)
+  teacher!: User;
+
   @BelongsToMany(() => User, () => UserClassroom)
-  users?: User[]
+  users?: User[];
 };

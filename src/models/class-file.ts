@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { User } from './user';
 import { Classroom } from './classroom';
 
@@ -51,4 +51,10 @@ export class ClassFile extends Model<ClassFile> {
         allowNull: false
     })
     classroomId!: string;
+
+    @BelongsTo(() => User)
+    author!: User;
+
+    @BelongsTo(() => Classroom)
+    classroom!: Classroom;
 };

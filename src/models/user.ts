@@ -36,5 +36,5 @@ export class User extends Model<User> {
   role!: UserRole;
 
   @BelongsToMany(() => Classroom, () => UserClassroom)
-  classrooms?: Classroom[]
+  classrooms?: Classroom[];
 };
