@@ -11,9 +11,7 @@ jobs:
           node-version: '14.20.0'
       - run: npm ci
       - run: npm run build
-      - run: ls
       - run: touch .env
       - run: node -e "console.log('JWT_SECRET=' + require('crypto').randomBytes(128).toString('base64'));" > .env
       - run: echo PORT=3000 > .env
       - run: cat .env
-      - run: npm start
