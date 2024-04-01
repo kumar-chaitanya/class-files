@@ -4,6 +4,7 @@
   "description": "Class files application to manage the resources shared between teachers and students",
   "main": "build/app.js",
   "scripts": {
+    "start": "node build/app.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
