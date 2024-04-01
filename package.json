@@ -2,8 +2,9 @@
   "name": "class-files",
   "version": "1.0.0",
   "description": "Class files application to manage the resources shared between teachers and students",
-  "main": "app.js",
+  "main": "build/app.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chaitanya Kumar",
