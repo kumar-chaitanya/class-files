@@ -1,19 +1,13 @@
 name: Node CI
 run-name: Running CI workflow for node app
-on:
-  pull_request:
+on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{github.head_ref}}
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '14.20.0'
       - run: npm ci
       - run: npm run build
-      - run: touch .env
-      - run: node -e "console.log('JWT_SECRET=' + require('crypto').randomBytes(128).toString('base64'));" >> .env
-      - run: echo PORT=3000 >> .env
-      - run: cat .env
