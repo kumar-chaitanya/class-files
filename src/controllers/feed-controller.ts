@@ -15,7 +15,7 @@ const getClassesFeed = async (req: Request, res: Response): Promise<void> => {
             classes = await Classroom.findAll({ where: { teacherId: req.user.id } });
         } else {
             // If the user is a student, fetch classes the student is part of
-            let getClassrooms = `SELECT 
+            const getClassrooms = `SELECT 
             classrooms.*
         FROM
             users
@@ -58,7 +58,7 @@ const getFilesFeed = async (req: Request, res: Response): Promise<void> => {
 
         // If the user is a teacher, fetch all files for the classroom
         if (req.user?.role === 'teacher') {
-            let conditions: Where = {
+            const conditions: Where = {
                 where: {
                     classroomId,
                     uploadedBy: req.user.id

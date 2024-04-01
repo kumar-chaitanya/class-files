@@ -10,4 +10,5 @@ jobs:
         with:
           node-version: '14.20.0'
       - run: npm ci
+      - run: npm run lint
       - run: npm run build

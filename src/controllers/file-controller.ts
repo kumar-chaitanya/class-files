@@ -21,7 +21,7 @@ const downloadFile = async (req: Request, res: Response): Promise<void> => {
             res.status(403).json({ message: 'You are not authorized to download this file' });
             return;
         } else if (req.user?.role === 'student') {
-            let fileAccessExists = await UserClassroom.findOne({ where: { classroomId: file.classroomId, studentId: req.user.id } });
+            const fileAccessExists = await UserClassroom.findOne({ where: { classroomId: file.classroomId, studentId: req.user.id } });
             if (!fileAccessExists) {
                 res.status(403).json({ message: 'You are not authorized to download this file' });
                 return;

@@ -11,7 +11,7 @@ const createClassroom = async (req: Request, res: Response): Promise<void> => {
         const teacherId: string | undefined = req.user?.id;
         
         if (name && teacherId) {
-            let body = { name, teacherId } as Classroom;
+            const body = { name, teacherId } as Classroom;
             const classroom = await Classroom.create(body);
             res.status(201).json({ message: 'Classroom created successfully', classroom });
             return;
@@ -120,7 +120,7 @@ const addStudentToClassroom = async (req: Request, res: Response): Promise<void>
         }
 
         // Create new assignment for the student in the classroom
-        let body = { studentId, classroomId: id } as UserClassroom;
+        const body = { studentId, classroomId: id } as UserClassroom;
         await UserClassroom.create(body);
 
         res.status(200).json({ message: 'Student added to classroom successfully' });
@@ -184,7 +184,7 @@ const shareFileToClassroom = async (req: Request, res: Response): Promise<void> 
         }
 
         // Create the file entry in the database
-        let body = {
+        const body = {
             name: req.file?.originalname,
             description,
             uploadedBy: req.user.id,
