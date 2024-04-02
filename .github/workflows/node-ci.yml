@@ -5,11 +5,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
         with:
-          node-version: '15.x'
-      - run: npm ci
-      - run: npm rebuild bcrypt --build-from-source
-      - run: npm run lint
-      - run: npm run build
+          node-version: '16.20.2'
+
+      - name: Install node modules
+        run: npm ci
+
+      - name: Check linting
+        run: npm run lint
+
+      - name: Build project
+        run: npm run build
