@@ -1,0 +1,13 @@
+FROM node:16.20.2
+
+WORKDIR /usr/src/app
+
+COPY package*.json .
+
+COPY . .
+
+RUN npm ci
+
+RUN npm run build
+
+CMD ["npm", "start"]
