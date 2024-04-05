@@ -12,3 +12,9 @@ Below are the steps to run this project:
 ##### ER Diagram:
 
 ![1710914720876](image/readme/1710914720876.png)
+
+###### To run the production image
+
+```apache
+docker run -p 3000:3000 --env-file .env -e NODE_ENV=production -e DB_HOST=172.20.0.2 --network=host classfiles:production
+```

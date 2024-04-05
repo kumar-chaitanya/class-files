@@ -3,12 +3,16 @@ version: '3.4'
 services: 
   classfiles:
     container_name: classfiles
-    image: classfiles
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    image: chaitanyadocker1/class-files:production
+    # image: classfiles
+    # build:
+    #   context: .
+    #   dockerfile: ./Dockerfile
+    #   target: local
     # environment:
     #   DB_HOST: host.docker.internal
+    environment:
+      - NODE_ENV=production
     env_file:
       - ./.env
     ports:
