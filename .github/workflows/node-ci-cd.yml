@@ -1,0 +1,23 @@
+name: Node CI/CD
+run-name: Running CI/CD workflow for node app
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16.20.2'
+
+      - name: Install node modules
+        run: npm ci
+
+      - name: Check linting
+        run: npm run lint
+
+      - name: Build project
+        run: npm run build
