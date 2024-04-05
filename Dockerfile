@@ -11,6 +11,6 @@ CMD ["npm", "start"]
 FROM node:16-alpine as production
 WORKDIR /app
 COPY package*.json .
-RUN npm ci
+RUN npm ci --omit=dev
 COPY --from=local /usr/src/app/build .
 CMD ["node", "app.js"]
