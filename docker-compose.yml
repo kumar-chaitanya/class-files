@@ -3,20 +3,23 @@ version: '3.4'
 services: 
   classfiles:
     container_name: classfiles
-    image: chaitanyadocker1/class-files:production
-    # image: classfiles
-    # build:
-    #   context: .
-    #   dockerfile: ./Dockerfile
-    #   target: local
+    # image: chaitanyadocker1/class-files:production
+    image: class-files
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: local
     # environment:
-    #   DB_HOST: host.docker.internal
+      # DB_HOST: host.docker.internal
     environment:
-      - NODE_ENV=production
+      # - NODE_ENV=production
+      - NODE_ENV=development
     env_file:
       - ./.env
     ports:
       - 3000:3000
+    volumes:
+      - ./:/usr/src/app
     depends_on:
       mysql:
         condition: service_healthy
@@ -32,6 +35,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - 33060:3306
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin -u root -p$$MYSQL_ROOT_PASSWORD ping -h localhost"]
       timeout: 5s

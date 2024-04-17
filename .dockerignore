@@ -27,3 +27,5 @@ LICENSE
 ./postman
 ./image
 ./uploads
+./build
+./volumes
