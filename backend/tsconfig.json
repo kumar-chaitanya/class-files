@@ -12,6 +12,6 @@
     "skipLibCheck": true,
     "sourceMap": true
   },
-  "include": ["src/**/*", "app.ts"],
+  "include": ["backend/src/**/*", "backend/app.ts"],
   "exclude": ["node_modules"]
 }
