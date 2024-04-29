@@ -1,0 +1,33 @@
+{
+  "name": "class-files",
+  "version": "1.0.0",
+  "description": "Class files application to manage the resources shared between teachers and students",
+  "scripts": {
+    "lint-backend": "eslint backend/app.ts backend/src/**/*.ts",
+    "format-backend": "eslint backend/app.ts backend/src/**/*.ts --fix",
+    "lint-frontend": "eslint frontend/src/**/*.ts",
+    "format-frontend": "eslint frontend/src/**/*.ts --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumar-chaitanya/class-files.git"
+  },
+  "author": "Chaitanya Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kumar-chaitanya/class-files/issues"
+  },
+  "homepage": "https://github.com/kumar-chaitanya/class-files#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "6.5.0",
+    "@typescript-eslint/parser": "6.5.0",
+    "eslint": "^8.57.0",
+    "husky": "^4.3.8",
+    "typescript": "5.2.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-backend && npm run lint-frontend"
+    }
+  }
+}

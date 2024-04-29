@@ -6,8 +6,6 @@
   "scripts": {
     "start": "tsc -w & nodemon build/app.js",
     "build": "tsc",
-    "lint": "eslint app.ts src/**/*.ts",
-    "format": "eslint app.ts src/**/*.ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chaitanya Kumar",
@@ -32,16 +30,7 @@
     "@types/multer": "^1.4.11",
     "@types/node": "^20.11.30",
     "@types/sequelize": "^4.28.20",
-    "@typescript-eslint/eslint-plugin": "6.5.0",
-    "@typescript-eslint/parser": "6.5.0",
-    "eslint": "^8.57.0",
-    "husky": "^4.3.8",
     "nodemon": "^3.1.0",
     "typescript": "5.2.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   }
 }
