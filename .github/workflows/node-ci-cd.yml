@@ -25,13 +25,12 @@ jobs:
       - name: Check linting
         run: npm run lint-backend
 
-      - name: CD backend
-        run: cd backend
-
       - name: Install backend dependencies
-        run: npm ci 
+        working-directory: ./backend
+        run: npm ci
 
       - name: Build project
+        working-directory: ./backend
         run: npm run build
   
   docker:
